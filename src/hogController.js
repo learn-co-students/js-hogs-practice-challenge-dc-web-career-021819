@@ -18,6 +18,13 @@ class HogController {
   static changeStatus(status){
     return !status
   }
+
+  static deleteHog(event){
+    const id = event.target.parentNode.dataset.id
+    Adapter.destroyHog(id)
+    .then(HogController.init())
+  }
+
   static greasedHandler(event){
     // const updateObj = {}
     const id = event.target.parentNode.dataset.id
