@@ -1,5 +1,7 @@
 class HogController {
   static init(){
+    const hogForm = document.querySelector('#hog-form ')
+    hogForm.lastElementChild.addEventListener('click', HogController.newHog)
     Adapter.getHogs().then(HogController.renderHogs)
   }
 
@@ -22,11 +24,26 @@ class HogController {
   static deleteHog(event){
     const id = event.target.parentNode.dataset.id
     Adapter.destroyHog(id)
-    .then(HogController.init())
+    .then(HogController.init)
+  }
+
+  static newHog(event){
+    event.preventDefault()
+    const hogForm = event.target.parentNode
+    const hogObj = {}
+    hogObj.name = hogForm.name.value
+    hogObj.specialty = hogForm.specialty.value
+    hogObj["highest medal achieved"] = hogForm.medal.value
+    hogObj["weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water"] = hogForm.weight.value
+    hogObj.image = hogForm.img.value
+    hogObj.greased = hogForm.greased.checked
+
+    Adapter.createHog(hogObj)
+    .then(HogController.renderHog)
+    hogForm.reset()
   }
 
   static greasedHandler(event){
-    // const updateObj = {}
     const id = event.target.parentNode.dataset.id
     Adapter.getHog(id)
     .then(function(hogObj){

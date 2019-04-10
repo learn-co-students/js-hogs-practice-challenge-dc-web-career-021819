@@ -8,6 +8,17 @@ class Adapter {
     const url = `http://localhost:3000/hogs/${id}`
     return fetch(url).then(resp => resp.json())
   }
+  static createHog(newHog){
+    const url = "http://localhost:3000/hogs/"
+    const options = {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(newHog)
+    }
+      return fetch(url, options)
+      .then(resp => resp.json())
+      .then(HogController.init())
+  }
 
   static updateHog(hogObj){
     const url = `http://localhost:3000/hogs/${hogObj.id}`
