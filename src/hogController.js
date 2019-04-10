@@ -1,7 +1,5 @@
 class HogController {
   static init(){
-    const hogForm = document.querySelector('#hog-form ')
-    hogForm.lastElementChild.addEventListener('click', HogController.newHog)
     Adapter.getHogs().then(HogController.renderHogs)
   }
 
